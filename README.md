@@ -63,7 +63,7 @@ ParameterizedTest를 사용하지 않고 여러 입력에 대한 테스트를 �
 
 ```java
 @Test
-void orderId_가_null이면_주문이_완료되지_않는다() {
+void orderId_가_null이면_주문이_되지_않는다() {
     sut.processOrder(null);
 
     verify(orderService, never()).getOrder(anyString());
@@ -71,7 +71,7 @@ void orderId_가_null이면_주문이_완료되지_않는다() {
 }
 
 @Test
-void orderId_가_빈_문자열이면_주문이_완료되지_않는다() {
+void orderId_가_빈_문자열이면_주문이_되지_않는다() {
     sut.processOrder("");
 
     verify(orderService, never()).getOrder(anyString());
@@ -79,7 +79,7 @@ void orderId_가_빈_문자열이면_주문이_완료되지_않는다() {
 }
 
 @Test
-void orderId_가_공백이면_주문과_주문이_완료되지_않는다() {
+void orderId_가_공백이면_주문이_되지_않는다() {
     sut.processOrder(" ");
 
     verify(orderService, never()).getOrder(anyString());
@@ -93,7 +93,7 @@ ParameterizedTest를 사용하면, 다음과 같이 작성할 수 있다.
 @ParameterizedTest
 @NullAndEmptySource
 @ValueSource(strings = {" ", "  "})
-void orderId_가_null_빈문자열_공백이면_주문이_완료되지_않는다(String orderId) {
+void orderId가_비어있으면_주문이_되지_않는다(String orderId) {
     sut.processOrder(orderId);
 
     verify(orderService, never()).getOrder(anyString());
