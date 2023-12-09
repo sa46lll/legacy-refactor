@@ -11,8 +11,8 @@ public class LegacyService {
     private final PaymentService paymentService;
     private final Logger logger;
 
-    public LegacyService(OrderService externalOrderService, PaymentService paymentService, Logger logger) {
-        this.orderService = externalOrderService;
+    public LegacyService(OrderService orderService, PaymentService paymentService, Logger logger) {
+        this.orderService = orderService;
         this.paymentService = paymentService;
         this.logger = logger;
     }
