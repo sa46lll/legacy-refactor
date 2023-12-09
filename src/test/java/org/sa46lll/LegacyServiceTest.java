@@ -8,6 +8,9 @@ import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.sa46lll.service.OrderService;
 import org.sa46lll.service.PaymentService;
 import org.sa46lll.service.LegacyService;
@@ -25,25 +28,11 @@ class LegacyServiceTest {
         sut = new LegacyService(orderService, paymentService);
     }
 
-    @Test
-    void orderId_가_null이면_주문과_결제가_되지_않는다() {
-        sut.processOrder(null);
-
-        verify(orderService, times(0)).getOrder(anyString());
-        verify(paymentService, times(0)).makePayment(anyDouble());
-    }
-
-    @Test
-    void orderId_가_빈_문자열이면_주문과_결제가_되지_않는다() {
-        sut.processOrder("");
-
-        verify(orderService, times(0)).getOrder(anyString());
-        verify(paymentService, times(0)).makePayment(anyDouble());
-    }
-
-    @Test
-    void orderId_가_공백이면_주문과_결제가_되지_않는다() {
-        sut.processOrder(" ");
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"", " "})
+    void orderId가_비어있으면_주문이_되지_않는다(String text) {
+        sut.processOrder(text);
 
         verify(orderService, times(0)).getOrder(anyString());
         verify(paymentService, times(0)).makePayment(anyDouble());
