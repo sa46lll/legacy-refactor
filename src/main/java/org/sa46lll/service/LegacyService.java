@@ -2,12 +2,20 @@ package org.sa46lll.service;
 
 import org.sa46lll.domain.Order;
 import org.sa46lll.infrastructure.Logger;
+import org.sa46lll.service.impl.ExternalOrderService;
+import org.sa46lll.service.impl.DefaultPaymentService;
 
 public class LegacyService {
 
+    private final OrderService orderService;
+    private final PaymentService paymentService;
+
+    public LegacyService(ExternalOrderService externalOrderService, DefaultPaymentService paymentService) {
+        this.orderService = externalOrderService;
+        this.paymentService = paymentService;
+    }
+
     public boolean processOrder(String orderId) {
-        ExternalOrderService orderService = new ExternalOrderService();
-        PaymentService paymentService = new PaymentService();
         Logger logger = new Logger();
 
         if (orderId == null || orderId.isEmpty()) {
