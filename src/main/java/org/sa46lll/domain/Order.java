@@ -1,6 +1,6 @@
-package org.sa46lll;
+package org.sa46lll.domain;
 
-class Order {
+public class Order {
 
     private String id;
     private double total;

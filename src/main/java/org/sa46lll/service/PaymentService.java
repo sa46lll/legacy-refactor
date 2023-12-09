@@ -1,4 +1,4 @@
-package org.sa46lll;
+package org.sa46lll.service;
 
 class PaymentService {
 

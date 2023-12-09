@@ -1,6 +1,6 @@
-package org.sa46lll;
+package org.sa46lll.infrastructure;
 
-class Logger {
+public class Logger {
 
     public void log(String message) {
         // 로깅 로직

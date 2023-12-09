@@ -1,4 +1,7 @@
-package org.sa46lll;
+package org.sa46lll.service;
+
+import org.sa46lll.domain.Order;
+import org.sa46lll.infrastructure.Logger;
 
 public class LegacyService {
 
