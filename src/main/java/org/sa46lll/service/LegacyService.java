@@ -2,6 +2,7 @@ package org.sa46lll.service;
 
 import org.sa46lll.domain.Order;
 import org.sa46lll.infrastructure.Logger;
+import org.sa46lll.service.dto.OrderRequest;
 
 public class LegacyService {
 
@@ -15,11 +16,8 @@ public class LegacyService {
         this.logger = logger;
     }
 
-    public boolean processOrder(String orderId) {
-        if (orderId == null || orderId.isBlank()) {
-            logger.log("Order ID is invalid.");
-            return false;
-        }
+    public boolean processOrder(OrderRequest orderRequest) {
+        String orderId = orderRequest.orderId();
 
         Order order = orderService.getOrder(orderId);
         if (order == null) {

@@ -1,6 +1,7 @@
 package org.sa46lll;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -20,6 +21,7 @@ import org.sa46lll.infrastructure.Logger;
 import org.sa46lll.service.OrderService;
 import org.sa46lll.service.PaymentService;
 import org.sa46lll.service.LegacyService;
+import org.sa46lll.service.dto.OrderRequest;
 
 class LegacyServiceTest {
 
@@ -40,10 +42,7 @@ class LegacyServiceTest {
     @NullAndEmptySource
     @ValueSource(strings = {"", " "})
     void orderId가_비어있으면_주문이_되지_않는다(String text) {
-        sut.processOrder(text);
-
-        verify(orderService, never()).getOrder(anyString());
-        verify(paymentService, never()).makePayment(anyDouble());
+        assertThrows(IllegalArgumentException.class, () -> new OrderRequest(text));
     }
 
     @Test
@@ -51,7 +50,7 @@ class LegacyServiceTest {
         String orderId = "nonExistingOrderId";
         when(orderService.getOrder(orderId)).thenReturn(null);
 
-        boolean result = sut.processOrder(orderId);
+        boolean result = sut.processOrder((new OrderRequest(orderId)));
 
         assertFalse(result);
         verify(orderService, times(1)).getOrder(orderId);
@@ -64,7 +63,7 @@ class LegacyServiceTest {
         when(orderService.getOrder(orderId)).thenReturn(new Order(orderId, 1000.0));
         when(paymentService.makePayment(anyDouble())).thenReturn(false);
 
-        boolean result = sut.processOrder(orderId);
+        boolean result = sut.processOrder((new OrderRequest(orderId)));
 
         assertFalse(result);
         verify(orderService, times(1)).getOrder(anyString());
@@ -77,7 +76,7 @@ class LegacyServiceTest {
         when(orderService.getOrder(orderId)).thenReturn(new Order(orderId, 1000.0));
         when(paymentService.makePayment(anyDouble())).thenReturn(true);
 
-        boolean result = sut.processOrder(orderId);
+        boolean result = sut.processOrder((new OrderRequest(orderId)));
 
         assertTrue(result);
         verify(orderService, times(1)).getOrder(anyString());
