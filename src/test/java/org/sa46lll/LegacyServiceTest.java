@@ -41,10 +41,10 @@ class LegacyServiceTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    @ValueSource(strings = {"", " "})
-    void orderId가_비어있으면_주문이_되지_않는다(String text) {
+    @ValueSource(strings = {" ", "  "})
+    void orderId가_비어있으면_주문이_되지_않는다(String orderId) {
         assertThrows(IllegalArgumentException.class,
-                () -> new OrderRequest(text)
+                () -> new OrderRequest(orderId)
         );
     }
 
