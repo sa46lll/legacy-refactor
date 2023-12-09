@@ -7,15 +7,15 @@ public class LegacyService {
 
     private final OrderService orderService;
     private final PaymentService paymentService;
+    private final Logger logger;
 
-    public LegacyService(OrderService externalOrderService, PaymentService paymentService) {
+    public LegacyService(OrderService externalOrderService, PaymentService paymentService, Logger logger) {
         this.orderService = externalOrderService;
         this.paymentService = paymentService;
+        this.logger = logger;
     }
 
     public boolean processOrder(String orderId) {
-        Logger logger = new Logger();
-
         if (orderId == null || orderId.isBlank()) {
             logger.log("Order ID is invalid.");
             return false;
