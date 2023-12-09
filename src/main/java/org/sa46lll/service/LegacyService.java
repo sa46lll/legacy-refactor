@@ -2,6 +2,7 @@ package org.sa46lll.service;
 
 import org.sa46lll.domain.Order;
 import org.sa46lll.exception.OrderNotFoundException;
+import org.sa46lll.exception.PaymentFailedException;
 import org.sa46lll.infrastructure.Logger;
 import org.sa46lll.service.dto.OrderRequest;
 
@@ -24,8 +25,7 @@ public class LegacyService {
                 .orElseThrow(() -> new OrderNotFoundException(orderId));
 
         if (!paymentService.makePayment(order.getTotal())) {
-            logger.log("Payment failed for order: " + orderId);
-            return false;
+            throw new PaymentFailedException(orderId);
         }
 
         // 다른 복잡한 로직들...

@@ -1,6 +1,5 @@
 package org.sa46lll;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyDouble;
@@ -18,6 +17,7 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.sa46lll.domain.Order;
 import org.sa46lll.exception.OrderNotFoundException;
+import org.sa46lll.exception.PaymentFailedException;
 import org.sa46lll.infrastructure.impl.DefaultLogger;
 import org.sa46lll.service.OrderService;
 import org.sa46lll.service.PaymentService;
@@ -62,14 +62,13 @@ class LegacyServiceTest {
     @Test
     void 결제가_실패하면_주문이_되지_않는다() {
         String orderId = "existingOrderId";
+        OrderRequest orderRequest = new OrderRequest(orderId);
         when(orderService.getOrder(orderId)).thenReturn(Optional.of(new Order(orderId, 1000.0)));
         when(paymentService.makePayment(anyDouble())).thenReturn(false);
 
-        boolean result = sut.processOrder((new OrderRequest(orderId)));
-
-        assertFalse(result);
-        verify(orderService, times(1)).getOrder(anyString());
-        verify(paymentService, times(1)).makePayment(anyDouble());
+        assertThrows(PaymentFailedException.class,
+                () -> sut.processOrder(orderRequest)
+        );
     }
 
     @Test
