@@ -18,7 +18,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.sa46lll.domain.Order;
 import org.sa46lll.exception.OrderNotFoundException;
 import org.sa46lll.exception.PaymentFailedException;
-import org.sa46lll.infrastructure.impl.DefaultLogger;
 import org.sa46lll.service.OrderService;
 import org.sa46lll.service.PaymentService;
 import org.sa46lll.service.LegacyService;
@@ -29,14 +28,12 @@ class LegacyServiceTest {
     private LegacyService sut;
     private OrderService orderService;
     private PaymentService paymentService;
-    private DefaultLogger logger;
 
     @BeforeEach
     void setUp() {
         orderService = mock(OrderService.class);
         paymentService = mock(PaymentService.class);
-        logger = mock(DefaultLogger.class);
-        sut = new LegacyService(orderService, paymentService, logger);
+        sut = new LegacyService(orderService, paymentService);
     }
 
     @ParameterizedTest

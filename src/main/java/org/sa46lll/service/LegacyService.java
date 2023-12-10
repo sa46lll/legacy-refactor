@@ -10,16 +10,15 @@ public class LegacyService {
 
     private final OrderService orderService;
     private final PaymentService paymentService;
-    private final Logger logger;
 
-    public LegacyService(OrderService orderService, PaymentService paymentService, Logger logger) {
+    public LegacyService(OrderService orderService, PaymentService paymentService) {
         this.orderService = orderService;
         this.paymentService = paymentService;
-        this.logger = logger;
     }
 
     public boolean processOrder(OrderRequest orderRequest) {
         String orderId = orderRequest.orderId();
+        Logger logger = Logger.getInstance();
 
         Order order = orderService.getOrder(orderId)
                 .orElseThrow(() -> new OrderNotFoundException(orderId));
