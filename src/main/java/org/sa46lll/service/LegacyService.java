@@ -4,6 +4,7 @@ import org.sa46lll.domain.Order;
 import org.sa46lll.exception.OrderNotFoundException;
 import org.sa46lll.exception.PaymentFailedException;
 import org.sa46lll.infrastructure.Logger;
+import org.sa46lll.infrastructure.enums.LogLevel;
 import org.sa46lll.service.dto.OrderRequest;
 
 public class LegacyService {
@@ -28,7 +29,7 @@ public class LegacyService {
         }
 
         // 다른 복잡한 로직들...
-        logger.log("Order processed: " + orderId);
+        logger.log("Order processed: " + orderId, LogLevel.INFO);
         return true;
     }
 }
