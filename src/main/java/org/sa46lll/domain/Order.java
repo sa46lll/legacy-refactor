@@ -10,6 +10,10 @@ public class Order {
         this.total = total;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public double getTotal() {
         return total;
     }

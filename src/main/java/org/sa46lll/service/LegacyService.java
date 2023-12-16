@@ -4,6 +4,7 @@ import org.sa46lll.domain.Order;
 import org.sa46lll.infrastructure.Logger;
 import org.sa46lll.infrastructure.enums.LogLevel;
 import org.sa46lll.service.dto.OrderRequest;
+import org.sa46lll.service.dto.PaymentInfo;
 
 public class LegacyService {
 
@@ -20,7 +21,10 @@ public class LegacyService {
         Logger logger = Logger.getInstance();
 
         Order order = orderService.getOrder(orderId);
-        paymentService.makePayment(order.getTotal());
+
+        paymentService.processPayment(
+                PaymentInfo.from(orderRequest)
+        );
 
         logger.log("Order processed: " + orderId, LogLevel.INFO);
     }

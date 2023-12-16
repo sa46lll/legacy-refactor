@@ -1,6 +1,8 @@
 package org.sa46lll.service;
 
+import org.sa46lll.service.dto.PaymentInfo;
+
 public interface PaymentService {
 
-    boolean makePayment(double amount);
+    void processPayment(PaymentInfo paymentInfo);
 }

@@ -1,7 +1,9 @@
 package org.sa46lll.service.dto;
 
 public record OrderRequest(
-        String orderId
+        String orderId,
+        double amount,
+        String creditCardNumber
 ) {
 
     public OrderRequest {
