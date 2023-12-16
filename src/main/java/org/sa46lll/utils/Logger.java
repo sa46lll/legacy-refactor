@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.sa46lll.utils.enums.LogLevel;
 
-public class Logger {
+public class Logger implements ILogger {
 
     private static Logger instance = new Logger();
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

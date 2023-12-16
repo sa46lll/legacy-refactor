@@ -1,10 +1,8 @@
 package org.sa46lll.service;
 
-import org.sa46lll.utils.Logger;
 import org.sa46lll.service.dto.OrderDto;
 import org.sa46lll.service.dto.OrderRequest;
 import org.sa46lll.service.dto.PaymentInfo;
-import org.sa46lll.utils.enums.LogLevel;
 
 public class LegacyService {
 
@@ -18,9 +16,6 @@ public class LegacyService {
     }
 
     public void processOrder(OrderRequest orderRequest) {
-        String orderId = orderRequest.orderId();
-        Logger logger = Logger.getInstance();
-
         orderService.order(
                 new OrderDto(
                         orderRequest.orderId(),
@@ -30,7 +25,5 @@ public class LegacyService {
         paymentService.processPayment(
                 PaymentInfo.from(orderRequest)
         );
-
-        logger.log("Order processed: " + orderId, LogLevel.INFO);
     }
 }

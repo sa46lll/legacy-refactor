@@ -8,6 +8,10 @@ import static org.mockito.Mockito.verify;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.sa46lll.domain.PaymentEvent;
+import org.sa46lll.domain.PaymentEventHandler;
+import org.sa46lll.utils.ILogger;
+import org.sa46lll.utils.enums.LogLevel;
 
 class PaymentEventHandlerTest {
 
@@ -21,7 +25,7 @@ class PaymentEventHandlerTest {
     }
 
     @Test
-    void 이벤트가_호출되면_결제_로그가_출력된다() {
+    void 이벤트_핸들러가_호출되면_결제_로그가_출력된다() {
         ArgumentCaptor<String> logCaptor = ArgumentCaptor.forClass(String.class);
 
         sut.handlePaymentEvent(
