@@ -1,4 +1,4 @@
-package org.sa46lll;
+package org.sa46lll.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -8,8 +8,6 @@ import static org.mockito.Mockito.verify;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.sa46lll.domain.PaymentEvent;
-import org.sa46lll.domain.PaymentEventHandler;
 import org.sa46lll.utils.ILogger;
 import org.sa46lll.utils.enums.LogLevel;
 

@@ -1,4 +1,4 @@
-package org.sa46lll;
+package org.sa46lll.service;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -11,9 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.sa46lll.service.OrderService;
-import org.sa46lll.service.PaymentService;
-import org.sa46lll.service.LegacyService;
 import org.sa46lll.service.dto.OrderRequest;
 
 class LegacyServiceTest {
