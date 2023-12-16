@@ -1,7 +1,6 @@
 package org.sa46lll;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -74,9 +73,8 @@ class LegacyServiceTest {
         when(orderService.getOrder(orderId)).thenReturn(Optional.of(new Order(orderId, 1000.0)));
         when(paymentService.makePayment(anyDouble())).thenReturn(true);
 
-        boolean result = sut.processOrder((new OrderRequest(orderId)));
+        sut.processOrder((new OrderRequest(orderId)));
 
-        assertTrue(result);
         verify(orderService, times(1)).getOrder(anyString());
         verify(paymentService, times(1)).makePayment(anyDouble());
     }

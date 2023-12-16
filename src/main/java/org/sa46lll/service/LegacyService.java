@@ -17,7 +17,7 @@ public class LegacyService {
         this.paymentService = paymentService;
     }
 
-    public boolean processOrder(OrderRequest orderRequest) {
+    public void processOrder(OrderRequest orderRequest) {
         String orderId = orderRequest.orderId();
         Logger logger = Logger.getInstance();
 
@@ -28,8 +28,6 @@ public class LegacyService {
             throw new PaymentFailedException(orderId);
         }
 
-        // 다른 복잡한 로직들...
         logger.log("Order processed: " + orderId, LogLevel.INFO);
-        return true;
     }
 }
