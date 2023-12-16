@@ -1,9 +1,13 @@
 package org.sa46lll;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -32,5 +36,14 @@ class LegacyServiceTest {
         assertThrows(IllegalArgumentException.class,
                 () -> new OrderRequest(orderId, 1000.0, "1234-1234-1234-1234")
         );
+    }
+
+    @Test
+    void 주문이_성공하면_결제가_진행된다() {
+        sut.processOrder(
+                new OrderRequest("existingOrderId", 1000.0, "1234-1234-1234-1234")
+        );
+
+        verify(paymentService, times(1)).processPayment(any());
     }
 }
