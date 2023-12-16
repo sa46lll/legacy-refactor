@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.sa46lll.gateway.PaymentGateway;
 import org.sa46lll.repository.PaymentRepository;
 import org.sa46lll.service.dto.PaymentInfo;
+import org.springframework.context.ApplicationEventPublisher;
 
 
 class DefaultPaymentServiceTest {
@@ -19,12 +21,14 @@ class DefaultPaymentServiceTest {
     private DefaultPaymentService sut;
     private PaymentGateway paymentGateway;
     private PaymentRepository paymentRepository;
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @BeforeEach
     void setUp() {
         paymentGateway = mock(PaymentGateway.class);
         paymentRepository = mock(PaymentRepository.class);
-        sut = new DefaultPaymentService(paymentGateway, paymentRepository);
+        applicationEventPublisher = mock(ApplicationEventPublisher.class);
+        sut = new DefaultPaymentService(paymentGateway, paymentRepository, applicationEventPublisher);
     }
 
     @Test
@@ -36,6 +40,7 @@ class DefaultPaymentServiceTest {
         );
 
         verify(paymentRepository).save(any());
+        verify(applicationEventPublisher, times(1)).publishEvent(any(PaymentEvent.class));
     }
 
     @Test
@@ -46,5 +51,6 @@ class DefaultPaymentServiceTest {
                 () -> sut.processPayment(any(PaymentInfo.class))
         );
         verify(paymentRepository, never()).save(any());
+        verify(applicationEventPublisher, never()).publishEvent(any(PaymentEvent.class));
     }
 }

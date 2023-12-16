@@ -1,7 +1,10 @@
 package org.sa46lll.service.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -12,16 +15,19 @@ import org.sa46lll.domain.Order;
 import org.sa46lll.exception.OrderNotFoundException;
 import org.sa46lll.repository.OrderRepository;
 import org.sa46lll.service.OrderService;
+import org.springframework.context.ApplicationEventPublisher;
 
 class ExternalOrderServiceTest {
 
     private OrderService sut;
     private OrderRepository orderRepository;
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @BeforeEach
     void setUp() {
         orderRepository = mock(OrderRepository.class);
-        sut = new ExternalOrderService(orderRepository);
+        applicationEventPublisher = mock(ApplicationEventPublisher.class);
+        sut = new ExternalOrderService(orderRepository, applicationEventPublisher);
     }
 
     @Test
@@ -33,6 +39,7 @@ class ExternalOrderServiceTest {
         assertThrows(OrderNotFoundException.class,
                 () -> sut.getOrder(orderId)
         );
+        verify(applicationEventPublisher, never()).publishEvent(any(OrderEvent.class));
     }
 
     @Test
@@ -44,5 +51,6 @@ class ExternalOrderServiceTest {
         sut.getOrder(orderId);
 
         verify(orderRepository).save(orderId, 1000.0);
+        verify(applicationEventPublisher, times(1)).publishEvent(any(OrderEvent.class));
     }
 }
