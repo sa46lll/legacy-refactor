@@ -20,7 +20,7 @@ public class ExternalOrderService implements OrderService {
     }
 
     @Override
-    public Order getOrder(OrderDto orderDto) {
+    public void order(OrderDto orderDto) {
         Order order = orderRepository.save(
                 new Order(
                         orderDto.orderId(),
@@ -28,7 +28,6 @@ public class ExternalOrderService implements OrderService {
         ).orElseThrow(() -> new OrderNotFoundException(orderDto.orderId()));
 
         publishEvent(order);
-        return order;
     }
 
     private void publishEvent(Order order) {

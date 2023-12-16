@@ -41,7 +41,7 @@ class ExternalOrderServiceTest {
                         Optional.empty());
 
         assertThrows(OrderNotFoundException.class,
-                () -> sut.getOrder(
+                () -> sut.order(
                         new OrderDto(orderId, 1000.0)));
 
         verify(applicationEventPublisher, never()).publishEvent(any(OrderEvent.class));
@@ -54,7 +54,7 @@ class ExternalOrderServiceTest {
                 .thenReturn(
                         Optional.of(new Order(orderId, 1000.0)));
 
-        sut.getOrder(new OrderDto(orderId, 1000.0));
+        sut.order(new OrderDto(orderId, 1000.0));
 
         verify(orderRepository, times(1)).save(any());
         verify(applicationEventPublisher, times(1)).publishEvent(any(OrderEvent.class));

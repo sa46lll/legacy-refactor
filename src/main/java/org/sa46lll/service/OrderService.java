@@ -5,5 +5,5 @@ import org.sa46lll.service.dto.OrderDto;
 
 public interface OrderService {
 
-    Order getOrder(OrderDto orderDto);
+    void order(OrderDto orderDto);
 }
