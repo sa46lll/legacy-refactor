@@ -1,4 +1,4 @@
-package org.sa46lll.repository;
+package org.sa46lll.infrastructure;
 
 import org.sa46lll.domain.Payment;
 

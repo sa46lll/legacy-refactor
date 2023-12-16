@@ -1,10 +1,10 @@
 package org.sa46lll.service;
 
-import org.sa46lll.infrastructure.Logger;
-import org.sa46lll.infrastructure.enums.LogLevel;
+import org.sa46lll.utils.Logger;
 import org.sa46lll.service.dto.OrderDto;
 import org.sa46lll.service.dto.OrderRequest;
 import org.sa46lll.service.dto.PaymentInfo;
+import org.sa46lll.utils.enums.LogLevel;
 
 public class LegacyService {
 

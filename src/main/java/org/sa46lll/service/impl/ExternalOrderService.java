@@ -3,7 +3,7 @@ package org.sa46lll.service.impl;
 import org.sa46lll.domain.Order;
 import org.sa46lll.domain.OrderEvent;
 import org.sa46lll.exception.OrderNotFoundException;
-import org.sa46lll.repository.OrderRepository;
+import org.sa46lll.infrastructure.OrderRepository;
 import org.sa46lll.service.OrderService;
 import org.sa46lll.service.dto.OrderDto;
 import org.springframework.context.ApplicationEventPublisher;

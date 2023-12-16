@@ -1,8 +1,8 @@
-package org.sa46lll.infrastructure;
+package org.sa46lll.utils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import org.sa46lll.infrastructure.enums.LogLevel;
+import org.sa46lll.utils.enums.LogLevel;
 
 public class Logger {
 

@@ -4,7 +4,7 @@ import org.sa46lll.domain.Payment;
 import org.sa46lll.domain.PaymentEvent;
 import org.sa46lll.exception.PaymentFailedException;
 import org.sa46lll.gateway.PaymentGateway;
-import org.sa46lll.repository.PaymentRepository;
+import org.sa46lll.infrastructure.PaymentRepository;
 import org.sa46lll.service.PaymentService;
 import org.sa46lll.service.dto.PaymentInfo;
 import org.springframework.context.ApplicationEventPublisher;
