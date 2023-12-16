@@ -3,6 +3,7 @@ package org.sa46lll.service;
 import org.sa46lll.domain.Order;
 import org.sa46lll.infrastructure.Logger;
 import org.sa46lll.infrastructure.enums.LogLevel;
+import org.sa46lll.service.dto.OrderDto;
 import org.sa46lll.service.dto.OrderRequest;
 import org.sa46lll.service.dto.PaymentInfo;
 
@@ -11,7 +12,8 @@ public class LegacyService {
     private final OrderService orderService;
     private final PaymentService paymentService;
 
-    public LegacyService(OrderService orderService, PaymentService paymentService) {
+    public LegacyService(OrderService orderService,
+                         PaymentService paymentService) {
         this.orderService = orderService;
         this.paymentService = paymentService;
     }
@@ -20,7 +22,12 @@ public class LegacyService {
         String orderId = orderRequest.orderId();
         Logger logger = Logger.getInstance();
 
-        Order order = orderService.getOrder(orderId);
+        Order order = orderService.getOrder(
+                new OrderDto(
+                        orderRequest.orderId(),
+                        orderRequest.amount()
+                )
+        );
 
         paymentService.processPayment(
                 PaymentInfo.from(orderRequest)

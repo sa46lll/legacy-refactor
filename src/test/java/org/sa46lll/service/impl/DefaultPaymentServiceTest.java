@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.sa46lll.domain.PaymentEvent;
 import org.sa46lll.gateway.PaymentGateway;
 import org.sa46lll.repository.PaymentRepository;
 import org.sa46lll.service.dto.PaymentInfo;
