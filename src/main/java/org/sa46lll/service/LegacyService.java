@@ -1,8 +1,6 @@
 package org.sa46lll.service;
 
 import org.sa46lll.domain.Order;
-import org.sa46lll.exception.OrderNotFoundException;
-import org.sa46lll.exception.PaymentFailedException;
 import org.sa46lll.infrastructure.Logger;
 import org.sa46lll.infrastructure.enums.LogLevel;
 import org.sa46lll.service.dto.OrderRequest;
@@ -21,12 +19,8 @@ public class LegacyService {
         String orderId = orderRequest.orderId();
         Logger logger = Logger.getInstance();
 
-        Order order = orderService.getOrder(orderId)
-                .orElseThrow(() -> new OrderNotFoundException(orderId));
-
-        if (!paymentService.makePayment(order.getTotal())) {
-            throw new PaymentFailedException(orderId);
-        }
+        Order order = orderService.getOrder(orderId);
+        paymentService.makePayment(order.getTotal());
 
         logger.log("Order processed: " + orderId, LogLevel.INFO);
     }
